@@ -19,7 +19,7 @@ const Header = () => {
       <ul className='menu_list'>
         <li className='menu_item'>
           <a href="" className='menu_link'>
-          Главная
+          Yulian
           </a>
         </li>
         <li className='menu_item'>
