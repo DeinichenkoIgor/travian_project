@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
+  @import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap');
+
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -16,7 +20,419 @@
   }
 }
 
+html,
 body {
-  color: rgb(var(--foreground-rgb));
+  height: 100%;
+  margin: 0;
+}
+
+  
+.header_body {
+  background-color: #82D2F3;
+  position: sticky;
+  top: 0;
+}
+
+
+
+.footer_body {
+  background-color: #A0BE3C;
+  
+  position: bottom;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  
+}
+
+/*Шапка*/
+.conteiner {
+  padding: 0px 52px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header_left {
+  display: flex;
+  align-items: center;
+  gap: 112px;
+}
+
+  .header_menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: 61px;
+  
+  color: #000;
+  font-family: Kodchasan;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
   }
 
+  .menu_link {
+    display: flex;
+    position: relative;
+    height: 100%;
+    align-items: center;
+  }
+
+
+  .menu_link a {
+    padding: 10px;
+    display: block;
+  }
+
+  .menu_link a:hover {
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.30);
+  }
+
+  .menu_link:hover .subMenu_link {
+  display: block;
+  }
+
+  .menu_link .subMenu_link a:hover {
+    color: #82D2F3;
+  }
+
+
+
+  .subMenu_link {
+    padding: 10px 10px 10px 10px;
+    background-color: #E0ECBA;
+    position: absolute;
+    top: 61px;
+    left: 0px;
+    display: none;
+    border-radius: 0 0 10px 10px;
+    width: 200px;
+
+  }
+
+.header_right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.language_link {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 11px 5px;
+
+  color: #000;
+  font-family: Kodchasan;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.language_link:hover {
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.30);
+}
+
+.header_login {
+  
+}
+
+.login_link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+
+  color: rgba(0, 0, 0, 0.60);
+  font-family: Kodchasan;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 5px 5px 0 5px;
+}
+
+.login_link:hover {
+  color: rgba(0, 0, 0, 1);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.30);
+}
+
+/*подвал*/
+
+.conteiner_footer {
+  padding: 5px 52px;
+  
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+  align-items: center;
+}
+
+.footer_left {
+  
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.footer_suppot {
+
+}
+
+.footer_link {
+  display: flex;
+  padding: 5px 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: min-content;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.footer_icon {
+  color: #000;
+  font-family: Kameron;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer_iconHome {
+  color: #000;
+  font-family: Kodchasan;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.footer_icon:hover {
+  color: #00B0F9;
+  }
+
+.footer_iconHome:hover {
+  color: #00B0F9;
+  }
+
+.footer_linkIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/*RightMenu*/
+
+.RightMenu_body {
+  display: inline-flex;
+  /*height: 100%;*/
+  
+  flex-direction: column;
+  /*align-items: flex-end;
+  gap: 30px;*/
+  flex-shrink: 0;
+  
+  background: rgba(130, 210, 243, 0.50);
+
+}
+
+.RightMenu_content {
+  position: sticky;
+  top: 61px;
+
+  padding: 60px 30px 0px 16px;
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+}
+
+/*Home*/
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px;
+  height: 100%;
+  /*flex-shrink: 0;*/
+}
+
+.home_h {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.home_h h1 {
+  color: #000;
+  font-family: Kameron;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 3.6px;
+}
+
+.home_h h2 {
+  color: #000;
+  font-family: Kameron;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 4.8px;
+  text-transform: uppercase;
+}
+
+.home_content {
+  display: flex;
+  width: 100%; /* Занимать 100% ширины родителя */
+  gap: 110px;
+  height: 100%;
+  
+}
+
+.home_colomn,
+.home_colomn2 {
+  flex: 1; /* Занимать равное пространство */
+  box-sizing: border-box; /* Учитывать отступы внутри элементов при определении размеров */
+}
+
+.home_colomn {
+  display: flex;
+  flex-direction: column;
+  overflow: auto; /* или overflow: hidden; или другие значения в зависимости от ваших предпочтений */
+  
+  gap: 40px;
+  /* Увеличиваем размер .home_colomn */
+  flex-grow: 1.2;
+}
+
+.home_block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.home_block .footer_link {
+ background: rgba(160, 190, 60, 0.20);
+}
+
+.home_link {
+  display: flex;
+  padding: 5px 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: min-content;
+  border-radius: 10px;
+  background: rgba(130, 210, 243, 0.20);
+}
+
+.home_block h3,h4 {
+  display: flex;
+  justify-content: center;
+
+  padding: 10px 20px;
+  align-items: center;
+
+  border-radius: 10px;
+  background: rgba(130, 210, 243, 0.20);
+
+  color: #000;
+  font-family: Kodchasan;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.home_block p {
+  display: flex;
+  padding: 10px 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex: 1 0 0;
+  align-self: stretch;
+
+  border-radius: 10px;
+  background: rgba(160, 190, 60, 0.20);
+
+  color: #000;
+  font-family: Kodchasan;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.home_colomn2 {
+  
+   /* Уменьшаем размер .home_colomn2 */
+   flex-grow: 0.8;
+
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-end;
+
+   gap: 10px;
+  }
+
+  .home_colomn2 h3 {
+    display: flex;
+    width: fit-content;
+    height: 41px;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 10px;
+    background: rgba(130, 210, 243, 0.20);
+
+    color: #000;
+    text-align: center;
+    font-family: Kodchasan;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+ .home_team {
+  width: 100%;
+  height: 450px;
+  padding: 10px 20px;
+  overflow: auto;
+
+  border-radius: 10px;
+  background: rgba(160, 190, 60, 0.20);
+ }
+
+ .homeGaul {
+  position: absolute;
+  margin: 0 0 440px 300px;
+ }
+
+ /*Button*/
+
+ 
