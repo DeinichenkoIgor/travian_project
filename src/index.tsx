@@ -19,7 +19,7 @@ export default MyApp;
 */
 
 const smith = {
-  dfgdf: "",
+  dfgdf: "Главное здание",
   dfgdf1: "",
   dfgdf2: "",
   dfgdf3: "",
