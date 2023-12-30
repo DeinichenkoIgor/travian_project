@@ -433,6 +433,37 @@ body {
   margin: 0 0 440px 300px;
  }
 
- /*Button*/
+ /*Modal*/
+
+ .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.60);
+
+  display: flex;
+  justify-content: center;
+
+  overflow: hidden;
+  overflow-y: auto;
+  transition: opacity 0.3s;
+  z-index: 999;
+ }
+
+ .modal-content {
+  position: relative;
+  top: 100px;
+  margin: 20px;
+  width: 100%;
+  height: min-content;
+  max-width: min-content;
+  border-radius: 20px;
+  background-color: #FFF;
+  padding: 40px 20px 20px 20px;
+  transform: translateY(-50px);
+  transition: opacity 0.3s, transform 0.3s;
+ }
 
  

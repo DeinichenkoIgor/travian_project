@@ -1,9 +1,9 @@
 import type { Metadata} from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Header } from './components/Header'
-import { Footer } from './components/Footer'
-import { RightMenu } from './components/RightMenu'
+import { Header } from './components/Structure/Header'
+import { Footer } from './components/Structure/Footer'
+import { RightMenu } from './components/Structure/RightMenu'
 
 
 

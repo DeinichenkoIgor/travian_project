@@ -1,6 +1,11 @@
 import Link from "next/link";
-
+import Modal from '../Modal'; // Путь к компоненту модального окна
+import Demolish from '../Builder/BuilderTable'; // Путь к компоненту таблицы
+import Buildings from './BuilderArray'; //Массив зданий
+import { BuildingData, BuildingLevelDetail } from '../Builder/path/BuildingData'; // Убедитесь, что путь до файла правильный
 import React, { useState } from 'react';
+import BuilderTable from "../Builder/BuilderTable";
+
 
 const BuilderBtn: React.FC = () => {
     // Состояния для отображения box-btn1 и box-btn3
@@ -62,6 +67,21 @@ const BuilderBtn: React.FC = () => {
         }
     };
 
+        const [isModalOpen, setIsModalOpen] = useState(false);
+
+        // Состояние для данных текущего выбранного здания
+        const [currentBuilding, setCurrentBuilding] = useState<BuildingData | null>(null);
+
+        // Определение функций openModal и closeModal
+    const openModal = (building: BuildingData) => {
+        setCurrentBuilding(building); // Установите текущее здание
+        setIsModalOpen(true); // Откройте модальное окно
+    };
+    const closeModal = () => {
+        setIsModalOpen(false); // Закройте модальное окно
+        setCurrentBuilding(null); // Очистите текущее здание
+    };
+
     return (
     <div>
         
@@ -117,7 +137,7 @@ const BuilderBtn: React.FC = () => {
                                         <Link href={""} className="hover:bg-white/40 rounded px-[4px]">Большой амбар</Link>
                                         <Link href={""} className="hover:bg-white/40 rounded px-[4px]">Дом полководца</Link>
                                         <Link href={""} className="hover:bg-white/40 rounded px-[4px]">Водопровод</Link>
-                                        <Link href={""} className="hover:bg-white/40 rounded px-[4px]">Водопой</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.HorseDrinkingTrough)} className="hover:bg-white/40 rounded px-[4px]">Водопой</Link>
                                         <Link href={""} className="hover:bg-white/40 rounded px-[4px]">Пивоварня</Link>
                                         <Link href={""} className="hover:bg-white/40 rounded px-[4px]">Капканщик</Link>
                                         <Link href={""} className="hover:bg-white/40 rounded px-[4px]">Чудо Света</Link>
@@ -199,7 +219,7 @@ const BuilderBtn: React.FC = () => {
                                         <Link href={""} className="hover:bg-white/70 rounded px-[4px]">Посольство</Link>
                                         <Link href={""} className="hover:bg-white/70 rounded px-[4px]">Тайник</Link>
                                         <Link href={""} className="hover:bg-white/70 rounded px-[4px]">Ратуша</Link>
-                                        <Link href={""} className="hover:bg-white/70 rounded px-[4px]">Главное здание</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.MainBuilding)} className="hover:bg-white/70 rounded px-[4px]">Главное здание</Link>
                                         <Link href={""} className="hover:bg-white/70 rounded px-[4px]">Резиденция</Link>
                                         <Link href={""} className="hover:bg-white/70 rounded px-[4px]">Дворец</Link>
                                         <Link href={""} className="hover:bg-white/70 rounded px-[4px]">Каменотес</Link>
@@ -247,6 +267,10 @@ const BuilderBtn: React.FC = () => {
                 </div>
             </div>
         </div>
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+    {/* Передаем текущее здание в BuilderTable */}
+    {currentBuilding && <BuilderTable building={currentBuilding} />}
+</Modal>
     </div> 
     )
 }

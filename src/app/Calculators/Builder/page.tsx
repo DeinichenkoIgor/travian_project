@@ -8,7 +8,7 @@ export default function Builder() {
 }
 */
 "use client";
-import { BuilderBtn } from '../../components/BuilderBtn'
+import { BuilderBtn } from '../../components/Builder/BuilderBtn'
 
 
 export default function Builder() {
