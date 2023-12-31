@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Modal from '../Modal'; // Путь к компоненту модального окна
+import Modal from './ModalBuilder'; // Путь к компоненту модального окна
 import Demolish from '../Builder/BuilderTable'; // Путь к компоненту таблицы
 import Buildings from './BuilderArray'; //Массив зданий
 import { BuildingData, BuildingLevelDetail } from '../Builder/path/BuildingData'; // Убедитесь, что путь до файла правильный

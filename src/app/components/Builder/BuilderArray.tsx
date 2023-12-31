@@ -18,6 +18,7 @@
   const Buildings = {
     MainBuilding: {
         Name: "Главное здание",
+        Prerequiresites: "Нет требований",
         Description: "От него зависит скорость постройки остальных зданий",
         image: "/img/MainBuilding.jpg",
         OtherTitle: "Скорость постройки",
@@ -405,6 +406,7 @@
 
     HorseDrinkingTrough: {
         Name: "Водопой",
+        Prerequiresites: "Пункт сбора 10, Конюшня 20, Народ: Римляни",
         Description: "От него зависит скорость постройки кавалерии",
         image: "/img/HorseDrinkinTrough.jpg",
         OtherTitle: "Скорость постройки",
