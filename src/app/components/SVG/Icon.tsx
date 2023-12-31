@@ -12,6 +12,8 @@
     import WarehouseIcon from './Building/WarehouseIcon';
 //Другое
     import TimeIcon from './Other/TimeIcon';
+//Технические
+    import CrossIcon from './Technical/Cross';
 
 // Объединяем все иконки в один объект для легкого доступа
 const Icon = {
@@ -32,6 +34,10 @@ const Icon = {
     Other: {
         Time: TimeIcon,
     }, 
+
+    Technical: {
+        Cross: CrossIcon,
+    }
 };
 
 export default Icon;

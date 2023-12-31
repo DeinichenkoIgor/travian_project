@@ -21,6 +21,7 @@ export interface BuildingLevelDetail {
 
 export interface BuildingData {
   Name: string;
+  Prerequiresites: string;
   Description: string;
   image: string;
   OtherTitle: string;
