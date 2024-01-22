@@ -1,6 +1,7 @@
+//Modal.tsx
 import React from 'react';
-import CrossIcon from '../SVG/Technical/Cross';
-import FiltersModal from '../Builder/FiltersModal';
+import CrossIcon from './SVG/Technical/CrossIcon';
+
 
 interface ModalProps {
     isOpen: boolean;
@@ -21,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                 <CrossIcon size='20' color='#A0BE3C'/>
                 </button>
                 </div>
-                <FiltersModal />
+                
                 
                 {children}
                 

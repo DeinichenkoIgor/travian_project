@@ -433,7 +433,27 @@ body {
   margin: 0 0 440px 300px;
  }
 
- /*Modal*/
+ /*scrollbar*/
+
+ /* Стилизация кастомного скроллбара */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(160, 190, 60, 0.20);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(130, 210, 243, 0.50);
+  border-radius: 10px; /* Добавьте скругление, если нужно */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #82D2F3;
+}
+
+
 
  
 
