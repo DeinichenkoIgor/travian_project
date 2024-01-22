@@ -1,0 +1,32 @@
+//FiltersTable.tsx
+import React, { useState } from 'react';
+import ServerSpeedBtn from '../BtnMini/ServerSpeedBtn';
+import MainBuildingBtn from '../BtnMini/MainBuildingBtn';
+import GWGGBtn from '../BtnMini/GWGGBtn';
+import Upgrade25faster from '../BtnMini/Upgrade25faster';
+import CustomPlusBtn from '../BtnMini/CustomPlusBtn';
+
+
+const FiltersTable: React.FC<{
+    onServerSpeedChange: (speed: string) => void,
+    onMainBuildingLevelChange: (level: string) => void,
+    onUpgradeChange: (isUpgraded: boolean) => void,
+    isUpgradeActive: boolean
+}> = ({ onServerSpeedChange, onMainBuildingLevelChange, onUpgradeChange, isUpgradeActive }) => {
+
+    return (
+        <div className='flex items-center justify-between'>
+            <div className="flex gap-[20px] p-4"> 
+                <ServerSpeedBtn onSelect={onServerSpeedChange} />
+                <MainBuildingBtn onSelect={onMainBuildingLevelChange} />
+                < GWGGBtn />
+                <Upgrade25faster isActive={isUpgradeActive} onUpgradeChange={onUpgradeChange} />
+            </div>
+            <div>
+                < CustomPlusBtn />
+            </div>
+        </div>
+    );
+};
+
+export default FiltersTable;

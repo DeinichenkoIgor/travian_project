@@ -10,10 +10,14 @@
 //Здания
     import GranaryIcon from './Building/GranaryIcon';
     import WarehouseIcon from './Building/WarehouseIcon';
+    import MainBuildingIcon from './Building/MainBuildingIcon';
 //Другое
     import TimeIcon from './Other/TimeIcon';
 //Технические
-    import CrossIcon from './Technical/Cross';
+    import CrossIcon from './Technical/CrossIcon';
+    import CtrlIcon from './Technical/CtrlIcon';
+    import CustomPlusIcon from './Technical/CustomPlusIcon';
+    import MinusIcon from './Technical/MinusIcon';
 
 // Объединяем все иконки в один объект для легкого доступа
 const Icon = {
@@ -29,6 +33,7 @@ const Icon = {
     Building: {
         Warehouse: WarehouseIcon,
         Granary: GranaryIcon,
+        MainBuilding: MainBuildingIcon,
     },
 
     Other: {
@@ -37,6 +42,9 @@ const Icon = {
 
     Technical: {
         Cross: CrossIcon,
+        Ctrl: CtrlIcon,
+        CustomPlus: CustomPlusIcon,
+        Minus: MinusIcon,
     }
 };
 

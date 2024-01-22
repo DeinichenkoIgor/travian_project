@@ -1,7 +1,7 @@
 // NumberComponent.tsx
 import React from 'react';
 
-interface NumberComponentProps {
+export interface NumberComponentProps {
     number: number | string; // Теперь принимает и строку, и число
   }
 
