@@ -1,11 +1,22 @@
 "use client";
-import { BuilderBtn } from '../../components/Builder/BuilderBtn'
+import React, { useContext } from 'react';
+import { BuilderBtn } from '../../components/Builder/BuilderBtn';
 import BuilderBasement from '../../components/Builder/BuilderBasement';
 import Icon from '../../components/SVG/Icon';
-
+import BuilderContext, { BuilderProvider } from '../../components/Builder/BuilderContext';
 
 export default function Builder() {
     return (
+        <BuilderProvider>
+            <BuilderContent />
+        </BuilderProvider>
+    );
+}
+function BuilderContent() {
+    const { clearAllTables } = useContext(BuilderContext);
+
+    return (
+        
         <div className='inline-flex flex-col items-start gap-4.5'>
             <div className='flex items-start gap-[420px]'>
                 <BuilderBtn />
@@ -16,16 +27,18 @@ export default function Builder() {
                     <p>Описание калькулятора  вапавыпываодолпавпо фаопфжалдполдопф лдопфавопждопфждопф ажопажпжлфаоплавфдп олафвдпожаож лпалоплджажфл дпофажлодпфажлдополдфаполж дфажлподфажлофжлопфжлоп ожфлпфаждпфола</p>
                 </div>
             </div>
-            <div className='flex items-start flex-col p-2.5 gap-4'>
+            <div className='flex items-start flex-col p-2.5'>
                 <div className='flex px-2.5 gap-[16px] content-center flex-wrap rounded-t-lg  h-[50px] bg-[#A0BE3C66]/40'>
-                    <div className='bg-slate-300 h-[30px] w-[20px] flex'></div>
+                    <div className='bg-slate-300 h-[30px] w-[20px] flex' onClick={clearAllTables}>
+                        <Icon.Technical.Minus size='100%' color='Red' />
+                    </div>
                     <div className='bg-slate-200 h-[30px] w-[200px] text-black font-normal text-base leading-normal flex h-5 justify-center items-center'>Название</div>
                     <div className='bg-slate-300 h-[30px] w-[30px]'><Icon.Building.MainBuilding size='100%'/></div>
                     <div className='bg-slate-200 h-[30px] w-[30px]'><Icon.Building.MainBuilding size='100%'/></div>
                     <div className='bg-slate-300 h-[30px] w-[30px]'><Icon.Building.MainBuilding size='100%'/></div>
                     <div className='bg-slate-200 h-[30px] w-[52px]'><Icon.Other.Time size='100%'/></div>
                     <div className='bg-slate-300 h-[30px] w-[30px]'><Icon.Resources.CropBalance size='100%'/></div>
-                    <div className='bg-slate-200 h-[30px] w-[30px]]'>ЕК</div>
+                    <div className='bg-slate-200 h-[30px] w-[30px]  text-black font-normal text-base leading-normal flex h-5 justify-center items-center'>ЕК</div>
                     <div className='bg-slate-300 h-[30px] w-[52px]'><Icon.Resources.Lumber size='100%'/></div>
                     <div className='bg-slate-200 h-[30px] w-[52px]'><Icon.Resources.Clay size='100%'/></div>
                     <div className='bg-slate-300 h-[30px] w-[52px]'><Icon.Resources.Iron size='100%'/></div>
@@ -37,7 +50,7 @@ export default function Builder() {
             <div>
                 <BuilderBasement />
             </div>
-            </div>
         </div>
-    )
+    </div>
+    );
 }

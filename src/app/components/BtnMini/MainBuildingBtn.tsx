@@ -1,7 +1,8 @@
 //MainBuildingBtn.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import CtrlIcon from '../SVG/Technical/CtrlIcon';
 import MainBuildingIcon from '../SVG/Building/MainBuildingIcon';
+import BuilderContext from '../Builder/BuilderContext';
 
 const MainBuildingBtn: React.FC<{ onSelect: (level: string) => void }> = ({ onSelect }) => {
     const [selectedItem, setSelectedItem] = useState("1");
@@ -13,12 +14,15 @@ const MainBuildingBtn: React.FC<{ onSelect: (level: string) => void }> = ({ onSe
       const savedItem = localStorage.getItem('selectedMainBuildingItem');
       if (savedItem) setSelectedItem(savedItem);
     }, []);
+
+    const { setSelectedMainBuildingLevel } = useContext(BuilderContext);
   
     const handleItemClick = (item: string) => {
       setSelectedItem(item);
       localStorage.setItem('selectedMainBuildingItem', item);
       onSelect(item); // Убедитесь, что onSelect вызывается с item
       setIsOpen(false);
+      setSelectedMainBuildingLevel(item);
     };
  
     return (

@@ -1,7 +1,10 @@
 //GridBuilder.tsx
-import React from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image'; // Импортируем Image компонент из Next.js
 import { GridBuilderProps } from '../Builder/path/BuildingData';
+import { timeToSeconds, secondsToTime } from './timeUtils';
+import BuilderContext from './BuilderContext';
+
 
   const GridBuilder: React.FC<GridBuilderProps> = ({
   data, // Получаем данные как пропс
@@ -16,7 +19,9 @@ import { GridBuilderProps } from '../Builder/path/BuildingData';
   topRow3,
   onCellClick,
   selectedRows,  // используем массив выбранных строк
+  setLastRowTimeData,
   }) => {
+    
     // Убедимся, что у нас есть ширина для каждой колонки, иначе используем значение по умолчанию
   const adjustedCellWidths = cellWidths.length === numCols ? cellWidths : new Array(numCols).fill(40);
   // Рассчитываем общую ширину сетки, учитывая отступы
@@ -37,18 +42,7 @@ if (selectedRows.length === 1 || selectedRows.length === 2) {
   // Индексы самых высокой и низкой выбранных строк
   const lowestSelectedRowIndex = Math.min(...selectedRows); 
   const highestSelectedRowIndex = selectedRows.length === 1 ? lowestSelectedRowIndex : Math.max(...selectedRows); 
-  // Функция для преобразования времени в секунды
-const timeToSeconds = (time: string): number => {
-  const [hours, minutes, seconds] = time.split(':').map(Number);
-  return hours * 3600 + minutes * 60 + seconds;
-};
-// Функция для преобразования секунд обратно в строку времени
-const secondsToTime = (totalSeconds: number): string => {
-  const hours = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
-  const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
-  const seconds = (totalSeconds % 60).toString().padStart(2, '0');
-  return `${hours}:${minutes}:${seconds}`;
-};
+
   let sums = Array(8).fill(0); // Массив для сумм столбцов 2-8
   // Суммирование значений для столбцов 2-8
   for (let i = lowestSelectedRowIndex; i <= highestSelectedRowIndex; i++) {
@@ -58,7 +52,8 @@ const secondsToTime = (totalSeconds: number): string => {
             sums[col-1] += value; // Сохраняем сумму для каждого столбца
         }
     }
-}
+  }
+
 // Суммирование времени для 9-го столбца
 let totalSeconds = 0;
 for (let i = lowestSelectedRowIndex; i <= highestSelectedRowIndex; i++) {
@@ -67,26 +62,72 @@ for (let i = lowestSelectedRowIndex; i <= highestSelectedRowIndex; i++) {
     totalSeconds += timeToSeconds(timeString);
   }
 }
+
 // Обновляем последнюю строку
 const updatedLastRow = [...data[data.length - 1]]; 
 updatedLastRow[0] = data[highestSelectedRowIndex][0]; // Сохраняем функцию для 1-го столбца
 for (let col = 1; col <= 7; col++) {
     updatedLastRow[col] = selectedRows.length === 1 ? data[lowestSelectedRowIndex][col] : sums[col-1]; // Обновляем столбцы 2-8
 }
-updatedLastRow[8] = selectedRows.length === 1 ? data[lowestSelectedRowIndex][8] : secondsToTime(totalSeconds); // Обновляем 9-й столбец
-// Сохраняем текущие функции для столбцов 10, 11, и 12
-updatedLastRow[9] = data[highestSelectedRowIndex][9]; // Столбец 10
-updatedLastRow[10] = data[highestSelectedRowIndex][10]; // Столбец 11
-updatedLastRow[11] = data[highestSelectedRowIndex][11]; // Столбец 12
-data[data.length - 1] = updatedLastRow; // Обновляем данные для последней строки
+
+const { setLastRowSumDataLumber, setLastRowSumDataClay,
+  setLastRowSumDataIron,
+  setLastRowSumDataCrop,
+  setLastRowSumDataResources,
+  setLastRowSumDataCropBalance,
+  setLastRowSumDataCP,
+  setLastRowSumDataWarehouse,
+  setLastRowSumDataGranary } = useContext(BuilderContext);
+
+  setLastRowSumDataLumber(updatedLastRow[1].toString());
+  setLastRowSumDataClay(updatedLastRow[2].toString());
+  setLastRowSumDataIron(updatedLastRow[3].toString());
+  setLastRowSumDataCrop(updatedLastRow[4].toString());
+  setLastRowSumDataResources(updatedLastRow[5].toString());
+  setLastRowSumDataCropBalance(updatedLastRow[6].toString());
+  setLastRowSumDataCP(updatedLastRow[7].toString());
+
+  // if (typeof updatedLastRow[7] === 'string') {
+  //   setLastRowSumDataCP(updatedLastRow[7]);
+  // } else {
+  //   setLastRowSumDataCP('0');
+  // }
+
+  updatedLastRow[8] = selectedRows.length === 1 ? data[lowestSelectedRowIndex][8] : secondsToTime(totalSeconds);
+    data[data.length - 1] = updatedLastRow;
+  // Сохраняем текущие функции для столбцов 10, 11, и 12
+  updatedLastRow[9] = data[highestSelectedRowIndex][9]; // Столбец 10
+  updatedLastRow[10] = data[highestSelectedRowIndex][10]; // Столбец 11
+  updatedLastRow[11] = data[highestSelectedRowIndex][11]; // Столбец 12
+
+if (typeof updatedLastRow[8] === 'string') {
+  setLastRowTimeData(updatedLastRow[8]);
+} else {
+  setLastRowTimeData('00:00:00');
 }
-  return (
+if (typeof updatedLastRow[9] === 'string') {
+  setLastRowSumDataWarehouse(updatedLastRow[9]);
+} else {
+  setLastRowSumDataWarehouse('-');
+}
+if (typeof updatedLastRow[10] === 'string') {
+  setLastRowSumDataGranary(updatedLastRow[10]);
+} else {
+  setLastRowSumDataGranary('-');
+}
+
+data[data.length - 1] = updatedLastRow; // Обновляем данные для последней строки
+
+
+}
+
+return (
     <div>
       <div className="flex mb-[1px]" style={{ width: `${totalWidth}px` }}>
         {/* Объединенная ячейка для первых трех строк */}
         <div
-          className="relative border border-gray-200"
-          style={{ width: `calc(20% - ${gap}px)`, height: `${3 * cellHeight + 2 * gap}px` }}
+          className="relative"
+          style={{ width: `calc(20% - ${gap}px)`}}
         >
           <div className="relative w-full h-full">
             <Image src={imagePath} alt="Unique Image" layout="fill" objectFit="contain" />
@@ -95,13 +136,13 @@ data[data.length - 1] = updatedLastRow; // Обновляем данные дл�
         
         {/* Отдельные ячейки для каждой из трех строк, используя пропсы */}
         <div className="flex flex-col justify-between" style={{ width: `calc(80% - ${gap}px)` }}>
-          <div className="w-full border border-gray-200" style={{ height: `${cellHeight}px` }}>
+          <div className="w-full text-black font-kameron text-xl font-bold leading-normal tracking-widest">
             {topRow1}
           </div>
-          <div className="w-full border border-gray-200" style={{ height: `${cellHeight}px` }}>
+          <div className="w-full" style={{ height: `${cellHeight}px` }}>
             {topRow2}
           </div>
-          <div className="w-full border border-gray-200" style={{ height: `${cellHeight}px` }}>
+          <div className="w-full">
             {topRow3}
           </div>
         </div>
