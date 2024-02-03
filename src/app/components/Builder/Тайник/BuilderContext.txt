@@ -1,10 +1,23 @@
 // BuilderContext.js
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 
+
 interface TableData {
     content: string;
     isVisible: boolean;
-}
+    timeData: string; // Добавляем поле для хранения времени
+    sumDataLumber: string; // Добавляем поле для хранения суммы данных
+    sumDataClay: string;
+    sumDataIron: string;
+    sumDataCrop: string;
+    sumDataResources: string;
+    sumDataCropBalance: string;
+    sumDataCP: string;
+    sumDataWarehouse: string;
+    sumDataGranary: string;
+    fromRowData: string;
+    toRowData: string;
+    }
 
 interface BuilderContextType {
     contents: TableData[];
@@ -13,10 +26,47 @@ interface BuilderContextType {
     setIsModalOpen: (isOpen: boolean) => void;
     showGrid: boolean;
     setShowGrid: (show: boolean) => void;
-    handleCustomPlusClick: (buildingName: string) => void;
+    handleCustomPlusClick: (buildingName: string,
+        timeData: string,
+        sumDataLumber: string,
+        sumDataClay: string,
+        sumDataIron: string,
+        sumDataCrop: string,
+        sumDataResources: string,
+        sumDataCropBalance: string,
+        sumDataCP: string,
+        sumDataWarehouse: string,
+        sumDataGranary: string,
+        fromRowData: string,
+        toRowData: string,) => void;
     handleRemoveTable: (index: number) => void;
     clearAllTables: () => void;
+    lastRowTimeData: string;
+    setLastRowTimeData: (data: string) => void;
+    lastRowSumDataLumber: string;
+    setLastRowSumDataLumber: (data: string) => void;
+    lastRowSumDataClay: string;
+    setLastRowSumDataClay: (data: string) => void;
+    lastRowSumDataIron: string;
+    setLastRowSumDataIron: (data: string) => void;
+    lastRowSumDataCrop: string;
+    setLastRowSumDataCrop: (data: string) => void;
+    lastRowSumDataResources: string;
+    setLastRowSumDataResources: (data: string) => void;
+    lastRowSumDataCropBalance: string;
+    setLastRowSumDataCropBalance: (data: string) => void;
+    lastRowSumDataCP: string;
+    setLastRowSumDataCP: (data: string) => void;
+    lastRowSumDataWarehouse: string;
+    setLastRowSumDataWarehouse: (data: string) => void;
+    lastRowSumDataGranary: string;
+    setLastRowSumDataGranary: (data: string) => void;
+    fromRowData?: never;
+    toRowData?: never;
+        
 }
+
+
 
 const BuilderContext = createContext<BuilderContextType>({
     contents: [],
@@ -28,7 +78,31 @@ const BuilderContext = createContext<BuilderContextType>({
     handleCustomPlusClick: () => {},
     handleRemoveTable: () => {},
     clearAllTables: () => {},
+    lastRowTimeData: "",
+    setLastRowTimeData: () => {},
+    lastRowSumDataLumber: "", // Добавьте начальное значение для lastRowSumData
+    setLastRowSumDataLumber: () => {}, // Добавьте функцию-заглушку для setLastRowSumData
+    lastRowSumDataClay: "",
+    setLastRowSumDataClay: () => {},
+    lastRowSumDataIron: "",
+    setLastRowSumDataIron: () => {},
+    lastRowSumDataCrop: "",
+    setLastRowSumDataCrop: () => {},
+    lastRowSumDataResources: "",
+    setLastRowSumDataResources: () => {},
+    lastRowSumDataCropBalance: "",
+    setLastRowSumDataCropBalance: () => {},
+    lastRowSumDataCP: "",
+    setLastRowSumDataCP: () => {},
+    lastRowSumDataWarehouse: "",
+    setLastRowSumDataWarehouse: () => {},
+    lastRowSumDataGranary: "",
+    setLastRowSumDataGranary: () => {},
+    
+    fromRowData: undefined,
+    toRowData: undefined
 });
+
 
 // Определение типа BuilderProviderProps
 interface BuilderProviderProps {
@@ -42,6 +116,19 @@ export const BuilderProvider: React.FC<BuilderProviderProps> = ({ children }) =>
     const clearAllTables = () => {
         setContents([]); // Очистка всех таблиц
     };
+    const [lastRowTimeData, setLastRowTimeData] = useState("");
+    const [lastRowSumDataLumber, setLastRowSumDataLumber] = useState("");
+    const [lastRowSumDataClay, setLastRowSumDataClay] = useState("");
+    const [lastRowSumDataIron, setLastRowSumDataIron] = useState("");
+    const [lastRowSumDataCrop, setLastRowSumDataCrop] = useState("");
+    const [lastRowSumDataResources, setLastRowSumDataResources] = useState("");
+    const [lastRowSumDataCropBalance, setLastRowSumDataCropBalance] = useState("");
+    const [lastRowSumDataCP, setLastRowSumDataCP] = useState("");
+    const [lastRowSumDataWarehouse, setLastRowSumDataWarehouse] = useState("");
+    const [lastRowSumDataGranary, setLastRowSumDataGranary] = useState("");
+    const [fromRowData, setFromRowData] = useState("");
+    const [toRowData, setToRowData] = useState("");
+
 
     useEffect(() => {
         localStorage.setItem('contents', JSON.stringify(contents));
@@ -51,13 +138,28 @@ export const BuilderProvider: React.FC<BuilderProviderProps> = ({ children }) =>
         localStorage.setItem('showGrid', showGrid.toString());
     }, [showGrid]);
 
-    const handleCustomPlusClick = (buildingName: string) => {
-        setContents([...contents, { content: buildingName, isVisible: true }]);
+    const handleCustomPlusClick = (buildingName: string, timeData: string, sumDataLumber: string, sumDataClay: string, sumDataIron: string, sumDataCrop: string, sumDataResources: string, sumDataCropBalance: string, sumDataCP: string, sumDataWarehouse: string, sumDataGranary: string, fromRowData: string, toRowData: string) => {
+        setContents(prevContents => [...prevContents, {
+            content: buildingName,
+            isVisible: true,
+            timeData: lastRowTimeData,
+            sumDataLumber: lastRowSumDataLumber, // Используем значение из контекста
+            sumDataClay: lastRowSumDataClay,
+            sumDataIron: lastRowSumDataIron,
+            sumDataCrop: lastRowSumDataCrop,
+            sumDataResources: lastRowSumDataResources,
+            sumDataCropBalance: lastRowSumDataCropBalance,
+            sumDataCP: lastRowSumDataCP,
+            sumDataWarehouse: lastRowSumDataWarehouse,
+            sumDataGranary: lastRowSumDataGranary,
+            fromRowData: fromRowData, // Установка значений
+            toRowData: toRowData
+        }]);
         setIsModalOpen(false);
-    };
+      };
 
     const handleRemoveTable = (index: number) => {
-        setContents(contents.filter((_, i) => i !== index));
+        setContents(prevContents => prevContents.filter((_, i) => i !== index));
     };
 
     return (
@@ -71,6 +173,27 @@ export const BuilderProvider: React.FC<BuilderProviderProps> = ({ children }) =>
             setShowGrid,
             handleCustomPlusClick,
             clearAllTables,
+            lastRowTimeData,
+            setLastRowTimeData,
+            lastRowSumDataLumber,
+            setLastRowSumDataLumber,
+            lastRowSumDataClay,
+            lastRowSumDataIron,
+            lastRowSumDataCrop,
+            lastRowSumDataResources,
+            lastRowSumDataCropBalance,
+            lastRowSumDataCP,
+            lastRowSumDataWarehouse,
+            lastRowSumDataGranary,
+            setLastRowSumDataClay,
+            setLastRowSumDataIron,
+            setLastRowSumDataCrop,
+            setLastRowSumDataResources,
+            setLastRowSumDataCropBalance,
+            setLastRowSumDataCP,
+            setLastRowSumDataWarehouse,
+            setLastRowSumDataGranary,
+            
         }}>
             {children}
         </BuilderContext.Provider>

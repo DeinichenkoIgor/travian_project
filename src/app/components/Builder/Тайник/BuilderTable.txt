@@ -1,32 +1,43 @@
-// BuilderTable.tsx
-import React, { useState, useEffect } from 'react';
+// ?
+import React, { useState, useEffect, useContext } from 'react';
 import GridBuilder from './GridBuilder'; //Сетка
-import NumberComponent from '../NumberComponent'; //Переобразователь
 import Icon from '../SVG/Icon'; //Иконки
-import Image from 'next/image';
 import { BuildingData, ServerSpeed, speedKeyMap, BuildingLevelDetail } from '../Builder/path/BuildingData';
 import FiltersTable from './FiltersTable';
 import { Buildings } from '../Builder/BuilderArray';
+import BuilderContext from '../Builder/BuilderContext';
 
 const BuilderTable: React.FC<{ building: BuildingData }> = ({ building }) => {
+  const [fromRowData, setFromRowData] = useState("");
+  const [toRowData, setToRowData] = useState("");
+  const [storageType, setStorageType] = useState<'Small' | 'Big'>('Small');
+
+
   const [serverSpeed, setServerSpeed] = useState<ServerSpeed>(() => localStorage.getItem('selectedDropdownItem') as ServerSpeed || "T 4.6 1x");
   const [mainBuildingLevel, setMainBuildingLevel] = useState(1);
   const [selectedRows, setSelectedRows] = React.useState<number[]>([]);
-  const [lastSelectedValue, setLastSelectedValue] = React.useState<string | null>(null);
-  const handleServerSpeedChange = (speed: string) => {if (speed in speedKeyMap) {setServerSpeed(speed as ServerSpeed);}};
-  const handleMainBuildingLevelChange = (level: string) => {
-    const newLevel = parseInt(level);
-    setMainBuildingLevel(newLevel);
-  };
+
+    
   const [isUpgradeActive, setIsUpgradeActive] = useState(false);
-  const handleUpgradeChange = (active: boolean) => {
-    setIsUpgradeActive(active);
-};
+
   useEffect(() => {
     const newLevel = parseInt(localStorage.getItem('selectedMainBuildingItem') || '1');
     setMainBuildingLevel(newLevel);
   }, []);
 
+  // Обработчики изменений состояния
+  const handleServerSpeedChange = (speed: string) => {if (speed in speedKeyMap) {setServerSpeed(speed as ServerSpeed);}};
+  const handleMainBuildingLevelChange = (level: string) => {const newLevel = parseInt(level); setMainBuildingLevel(newLevel);};
+  const handleUpgradeChange = (active: boolean) => {setIsUpgradeActive(active);};
+  const { lastRowTimeData, lastRowSumDataLumber, lastRowSumDataClay, lastRowSumDataIron, lastRowSumDataCrop, lastRowSumDataResources,
+    lastRowSumDataCropBalance, lastRowSumDataCP, lastRowSumDataWarehouse, lastRowSumDataGranary, } = useContext(BuilderContext);
+  const { setLastRowTimeData } = useContext(BuilderContext);
+
+  const handleStorageTypeChange = (type: 'Small' | 'Big') => {
+    setStorageType(type); // Обновление состояния
+  };
+
+  //Титульные данные
   const topRow1 = building.Name;
   const topRow2 = building.Prerequiresites;
   const topRow3 = building.Description;
@@ -44,6 +55,18 @@ const BuilderTable: React.FC<{ building: BuildingData }> = ({ building }) => {
     for (let i = 1; i <= maxLevels; i++) {
       const levelKey = `lvl${i}`;
       const levelData = building.levels[levelKey];
+  
+      let warehouseData = '-';
+      let granaryData = '-';
+  
+      // Убедитесь, что у levelData есть свойства Warehouse и Granary
+      if (levelData && levelData.Warehouse && levelData.Warehouse[storageType]) {
+        warehouseData = levelData.Warehouse[storageType];
+      }
+      if (levelData && levelData.Granary && levelData.Granary[storageType]) {
+        granaryData = levelData.Granary[storageType];
+      }
+
       if (levelData) {
         const speedKey = speedKeyMap[serverSpeed];
         const originalTime = levelData.Time ? levelData.Time[speedKey] : "00:00:00";
@@ -65,8 +88,8 @@ const BuilderTable: React.FC<{ building: BuildingData }> = ({ building }) => {
         String(levelData.CropBalance || '-'),
         String(levelData.CP || '-'),
         reducedTimeString,
-        String(levelData.Warehouse || '-'),
-        String(levelData.Granary || '-'),
+        warehouseData, // Используйте warehouseData здесь
+        granaryData, // Используйте granaryData здесь
         String(levelData.Other || '-')
         ]);
       }
@@ -80,47 +103,41 @@ const BuilderTable: React.FC<{ building: BuildingData }> = ({ building }) => {
   };
 // Создаем массив ширин колонок, где первая колонка 20, последняя 300, а остальные 40
   const cellWidths = Array(12).fill(60); // сначала заполните все колонки шириной 40
-  cellWidths[0] = 30; // измените ширину первой колонки на 20
+  cellWidths[0] = 30;
   cellWidths[6] = 30; 
   cellWidths[7] = 30; 
   cellWidths[8] = 80;
   cellWidths[9] = 80;
   cellWidths[10] = 80;
-  cellWidths[11] = 220; // измените ширину последней колонки на 300
+  cellWidths[11] = 220;
 
-  useEffect(() => {
-    localStorage.setItem('selectedDropdownItem', serverSpeed);
-  }, [serverSpeed]);
   const [data, setData] = useState(generateGridData());
-  useEffect(() => {
-    let newData = generateGridData();
-    if (selectedRows.length === 2 && lastSelectedValue !== null) {
-        const numericValue = lastSelectedValue ? parseInt(lastSelectedValue, 10) : 0;
-        newData[newData.length - 1][0] = <NumberComponent number={numericValue} />;
-    }
-    setData(newData);
-}, [mainBuildingLevel, serverSpeed, selectedRows, lastSelectedValue, isUpgradeActive]);
-  const finalData = data; // Теперь finalData это просто data
+  useEffect(() => { setData(generateGridData()); }, [mainBuildingLevel, serverSpeed, isUpgradeActive, storageType]);
+
   const handleCellClick = (rowIndex: number) => {
     if (rowIndex !== 0 && rowIndex !== data.length - 1) {
-        setSelectedRows((prevSelected) => {
-            const updatedSelected = [...prevSelected];
-            if (updatedSelected.includes(rowIndex)) {
-                // Удалить, если строка уже выбрана
-                return updatedSelected.filter((r) => r !== rowIndex);
-            } else if (updatedSelected.length === 2) {
-                // Сохраняем последнее значение с самой нижней выбранной строки
-                const lowestSelectedRow = Math.max(...updatedSelected);
-                const valueToSave = data[lowestSelectedRow][0]; // Убедитесь, что это строка или число!
-                setLastSelectedValue(String(valueToSave));
-                return [rowIndex]; // Сбросить и начать заново с текущей строки
-            } else {
-                // Добавить новую строку
-                return [...updatedSelected, rowIndex].slice(-2);
-            }
-        });
+      setSelectedRows((prevSelected) => {
+        const updatedSelected = prevSelected.includes(rowIndex)
+          ? prevSelected.filter((r) => r !== rowIndex)
+          : [...prevSelected, rowIndex].slice(-2);
+  
+        if (updatedSelected.length > 0) {
+          const lowestRowIndex = Math.min(...updatedSelected);
+          const highestRowIndex = Math.max(...updatedSelected);
+          setFromRowData(String(lowestRowIndex));
+          setToRowData(String(highestRowIndex));
+        } else {
+          setFromRowData("");
+          setToRowData("");
+        }
+  
+        return updatedSelected;
+      });
     }
-};
+  };
+  
+  
+  
 
 return (
     <div className="container mx-auto p-4">
@@ -129,23 +146,38 @@ return (
         onMainBuildingLevelChange={handleMainBuildingLevelChange}
         onUpgradeChange={handleUpgradeChange}
         isUpgradeActive={isUpgradeActive}
-        buildingName={topRow1} // Передаем название здания в FiltersTable
+        buildingName={topRow1}
+        timeData={lastRowTimeData}
+        sumDataLumber={lastRowSumDataLumber}
+        sumDataClay={lastRowSumDataClay}
+        sumDataIron={lastRowSumDataIron}
+        sumDataCrop={lastRowSumDataCrop}
+        sumDataResources={lastRowSumDataResources}
+        sumDataCropBalance={lastRowSumDataCropBalance}
+        sumDataCP={lastRowSumDataCP}
+        sumDataWarehouse={lastRowSumDataWarehouse}
+        sumDataGranary={lastRowSumDataGranary}
+        fromRowData={fromRowData}
+        toRowData={toRowData}
+        mainBuildingLevel={mainBuildingLevel.toString()}
+        setStorageType={handleStorageTypeChange}
       />
       
       <GridBuilder
         key={Date.now()}
-        numRows={finalData.length}
+        numRows={data.length}
         numCols={cellWidths.length}
         cellWidths={cellWidths}
         cellHeight={24}
         gap={1}
         imagePath={imagePath}
-        data={finalData} // Передаем данные в GridBuilder
+        data={data} // Передаем данные в GridBuilder
         topRow1={topRow1}
         topRow2={topRow2}
         topRow3={topRow3}
         onCellClick={handleCellClick} // передача функции
         selectedRows={selectedRows} // передача выбранной строки
+        setLastRowTimeData={setLastRowTimeData}
               />
     </div>
   );

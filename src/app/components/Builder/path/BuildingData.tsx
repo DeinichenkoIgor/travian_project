@@ -9,8 +9,14 @@ export interface BuildingLevelDetail {
   Resources: number;
   CropBalance: number;
   CP: number;
-  Warehouse: string;
-  Granary: string;
+  Warehouse: {
+    Small: string;
+    Big: string;
+  };
+  Granary: {
+    Small: string;
+    Big: string;
+  };
   Time: {
     X1: string;
     X2: string;
@@ -80,4 +86,5 @@ export interface GridBuilderProps {
   topRow3: string;
   onCellClick: (rowIndex: number) => void;  // Функция для обработки клика на ячейку
   selectedRows: number[];  // массив индексов выбранных строк
+  setLastRowTimeData: (data: string) => void;
   };

@@ -6,6 +6,7 @@ import Demolish from '../Builder/BuilderTable'; // Путь к компонен�
 import Buildings from './BuilderArray'; //Массив зданий
 import { BuildingData, BuildingLevelDetail } from '../Builder/path/BuildingData'; // Убедитесь, что путь до файла правильный
 import BuilderTable from "../Builder/BuilderTable";
+import VillageCenter from "../Builder/VillageCenter";
 
 
 const BuilderBtn: React.FC = () => {
@@ -83,13 +84,28 @@ const BuilderBtn: React.FC = () => {
         setIsModalOpen(false);
     };
 
+    // Новое состояние для открытия VillageCenter в модальном окне
+    const [isVillageCenterOpen, setIsVillageCenterOpen] = useState(false);
+
+    // Функция для открытия VillageCenter
+    const openVillageCenter = () => {
+        setIsVillageCenterOpen(true);
+        setIsModalOpen(true);
+    };
+
+    // Функция для закрытия VillageCenter
+    const closeVillageCenter = () => {
+        setIsVillageCenterOpen(false);
+        setIsModalOpen(false);
+    };
+
     return (
     <div>
         
-        <div className="btn_cent relative flex items-center ml-[400px] z-10">
+        <div className="btn_cent relative flex items-center ml-[400px]">
                 <div className="btn-igor relative flex rounded-[50%] w-[140px] h-[140px]">
                     <div className={`${colomLBackground} relative w-[70px] h-[140px]`}>
-                        <div className="colom_l relative z-[1]">
+                        <div className="colom_l relative">
                             {/* Условное отображение box-btn1 */}
                             {isHovered.btn1 && (
                                 <div className="box-btn1 absolute w-[400px] h-[140px] bg-[#F9E29D] -left-[400px] top-0 rounded-l-[10px] p-[8px]"
@@ -105,6 +121,7 @@ const BuilderBtn: React.FC = () => {
                                         <Link href="#" onClick={() => openModal(Buildings.ClayPit)} className="hover:bg-white/40 rounded px-[4px]">Глиняный карьер</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.IronMine)} className="hover:bg-white/40 rounded px-[4px]">Железный рудник</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.Cropland)} className="hover:bg-white/40 rounded px-[4px]">Ферма</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.HerosMansion)} className="hover:bg-white/40 rounded px-[4px]">Таверна</Link>
                                     </div>    
                                 </div>
                             )}
@@ -122,8 +139,7 @@ const BuilderBtn: React.FC = () => {
                                         text-sm
                                         not-italic
                                         font-normal
-                                        leading-normal
-                                        ">
+                                        leading-normal">
                                         Ресурсы
                                     </span>
                             </div>
@@ -133,7 +149,7 @@ const BuilderBtn: React.FC = () => {
                                 <div className="box-btn3 absolute w-[400px] h-[140px] bg-[#F59C07] -left-[400px] top-0 rounded-l-[10px] p-[8px]"
                                     onMouseEnter={handleMouseEnterBtn3}
                                     onMouseLeave={handleMouseLeaveBtn3}>
-                                    <div className="grid grid-rows-4 grid-flow-col gap-x-2.5 justify-content-start">
+                                    <div className="grid grid-rows-5 grid-flow-col gap-x-2.5 justify-content-start ">
                                         <Link href="#" onClick={() => openModal(Buildings.GreatWarehouse)} className="hover:bg-white/40 rounded px-[4px]">Большой склад</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.GreatGranary)} className="hover:bg-white/40 rounded px-[4px]">Большой амбар</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.CommandCenter)} className="hover:bg-white/40 rounded px-[4px]">Дом полководца</Link>
@@ -142,6 +158,8 @@ const BuilderBtn: React.FC = () => {
                                         <Link href="#" onClick={() => openModal(Buildings.Brewery)} className="hover:bg-white/40 rounded px-[4px]">Пивоварня</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.Trapper)} className="hover:bg-white/40 rounded px-[4px]">Капканщик</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.WonderOfTheWorld)} className="hover:bg-white/40 rounded px-[4px]">Чудо Света</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.CommandCenter)} className="hover:bg-white/40 rounded px-[4px]">Гавань -</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.CommandCenter)} className="hover:bg-white/40 rounded px-[4px]">Асклепион -</Link>
                                     </div>
                                 </div>
                             )}
@@ -167,25 +185,29 @@ const BuilderBtn: React.FC = () => {
                         </div>
                     </div>
                 <div className={`${colomRBackground} relative w-[70px] h-[140px]`}>
-                    <div className="colom_r relative z-[1]">
+                    <div className="colom_r relative">
                     {/* Условное отображение box-btn2 */}
                     {isHovered2.btn2 && (
                     <div className="box-btn2 absolute w-[400px] h-[140px] bg-[#A0BE3C] left-[70px] top-0 rounded-r-[10px] p-[8px]"
                         onMouseEnter={handleMouseEnterBtn2}
                         onMouseLeave={handleMouseLeaveBtn2}>
-                                    <div className="grid grid-rows-5 grid-flow-col gap-x-2.5">
+                                    <div className="grid grid-rows-6 grid-flow-col gap-x-2.5">
                                         <Link href="#" onClick={() => openModal(Buildings.RallyPoint)} className="hover:bg-white/40 rounded px-[4px]">Пункт сбора</Link>
-                                        <Link href="#" onClick={() => openModal(Buildings.HerosMansion)} className="hover:bg-white/40 rounded px-[4px]">Таверна</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.Academy)} className="hover:bg-white/40 rounded px-[4px]">Академия</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.Smithy)} className="hover:bg-white/40 rounded px-[4px]">Кузница</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.TournamentSquare)} className="hover:bg-white/40 rounded px-[4px]">Арена</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.Barracks)} className="hover:bg-white/40 rounded px-[4px]">Казарма</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.Stable)} className="hover:bg-white/40 rounded px-[4px]">Конюшня</Link>
-                                        <Link href="#" onClick={() => openModal(Buildings.Workshop)} className="hover:bg-white/40 rounded px-[4px]">Мастерская</Link>
-                                        <Link href="#" onClick={() => openModal(Buildings.Hospital)} className="hover:bg-white/40 rounded px-[4px]">Госпиталь</Link>
-                                        <Link href="#" onClick={() => openModal(Buildings.CityWall)} className="hover:bg-white/40 rounded px-[4px]">Стены</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.GreatBarracks)} className="hover:bg-white/40 rounded px-[4px]">Большая казарма</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.GreatStable)} className="hover:bg-white/40 rounded px-[4px]">Большая конюшня</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.CityWall)} className="hover:bg-white/40 rounded px-[4px]">Городская стена</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.EarthWall)} className="hover:bg-white/40 rounded px-[4px]">Земляной вал</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.MakeshiftWall)} className="hover:bg-white/40 rounded px-[4px]">Натяжной забор</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.CityWall)} className="hover:bg-white/40 rounded px-[4px]">Защитная стена-</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.Palisade)} className="hover:bg-white/40 rounded px-[4px]">Изгородь</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.StoneWall)} className="hover:bg-white/40 rounded px-[4px]">Ограда</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.Workshop)} className="hover:bg-white/40 rounded px-[4px]">Мастерская</Link>
+                                        <Link href="#" onClick={() => openModal(Buildings.Hospital)} className="hover:bg-white/40 rounded px-[4px]">Госпиталь</Link>
                                         
                                     </div>
                                 </div>
@@ -213,7 +235,7 @@ const BuilderBtn: React.FC = () => {
                     <div className="box-btn4 absolute w-[400px] h-[140px] bg-[#00B0F9] left-[70px] top-0 rounded-r-[10px] p-[8px]"
                         onMouseEnter={handleMouseEnterBtn4}
                         onMouseLeave={handleMouseLeaveBtn4}>
-                                    <div className="grid grid-rows-5 grid-flow-col gap-x-2.5 justify-content-end">
+                                    <div className="grid grid-rows-6 grid-flow-col gap-x-2.5 justify-content-end">
                                         <Link href="#" onClick={() => openModal(Buildings.Warehouse)} className="hover:bg-white/40 rounded px-[4px]">Склад</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.Granary)} className="hover:bg-white/40 rounded px-[4px]">Амбар</Link>
                                         <Link href="#" onClick={() => openModal(Buildings.Marketplace)} className="hover:bg-white/40 rounded px-[4px]">Рынок</Link>
@@ -262,16 +284,15 @@ const BuilderBtn: React.FC = () => {
                     -translate-x-[50%]
                     -translate-y-[50%]
                     z-20
-                    
-                    hover:scale-[1.2]">
-
+                    hover:scale-[1.2]"
+                    onClick={openVillageCenter}>
+                        
                 </div>
             </div>
         </div>
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
-    {/* Передаем текущее здание в BuilderTable */}
-    {currentBuilding && <BuilderTable building={currentBuilding} />}
-</Modal>
+        <Modal isOpen={isModalOpen} onClose={isVillageCenterOpen ? closeVillageCenter : closeModal}>
+                {isVillageCenterOpen ? <VillageCenter /> : currentBuilding && <BuilderTable building={currentBuilding} />}
+        </Modal>
     </div> 
     )
 }

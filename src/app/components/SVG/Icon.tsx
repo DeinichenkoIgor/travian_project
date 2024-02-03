@@ -11,33 +11,41 @@
     import GranaryIcon from './Building/GranaryIcon';
     import WarehouseIcon from './Building/WarehouseIcon';
     import MainBuildingIcon from './Building/MainBuildingIcon';
+    import GreatWarehouseIcon from './Building/GreatWarehouseIcon';
 //Другое
     import TimeIcon from './Other/TimeIcon';
+    import CatapultIcon from './Other/CatapultIcon';
+    import RamIcon from './Other/RamIcon';
 //Технические
     import CrossIcon from './Technical/CrossIcon';
     import CtrlIcon from './Technical/CtrlIcon';
     import CustomPlusIcon from './Technical/CustomPlusIcon';
     import MinusIcon from './Technical/MinusIcon';
+    import LvlAppIcon from './Technical/LvlAppIcon';
+    import LvlDefIcon from './Technical/LvlDefIcon';
 
 // Объединяем все иконки в один объект для легкого доступа
 const Icon = {
     Resources: {
-    Lumber: LumberIcon,
-    Clay: ClayIcon,
-    Iron: IronIcon,
-    Crop: CropIcon,
-    Resources: ResourcesIcon,
-    CropBalance: CropBalanceIcon,
+        Lumber: LumberIcon,
+        Clay: ClayIcon,
+        Iron: IronIcon,
+        Crop: CropIcon,
+        Resources: ResourcesIcon,
+        CropBalance: CropBalanceIcon,
     },
 
     Building: {
         Warehouse: WarehouseIcon,
         Granary: GranaryIcon,
         MainBuilding: MainBuildingIcon,
+        GreatWarehouse: GreatWarehouseIcon,
     },
 
     Other: {
         Time: TimeIcon,
+        Ram: RamIcon,
+        Catapult: CatapultIcon,
     }, 
 
     Technical: {
@@ -45,6 +53,8 @@ const Icon = {
         Ctrl: CtrlIcon,
         CustomPlus: CustomPlusIcon,
         Minus: MinusIcon,
+        LvlApp: LvlAppIcon,
+        LvlDef: LvlDefIcon,
     }
 };
 

@@ -1,9 +1,10 @@
+import React, { useContext, useState } from 'react';
+import BuilderContext from './BuilderContext';
 import Link from "next/link";
 import Modal from '../Modal'; // Путь к компоненту модального окна
 import Demolish from '../Builder/BuilderTable'; // Путь к компоненту таблицы
 import Buildings from './BuilderArray'; //Массив зданий
 import { BuildingData, BuildingLevelDetail } from '../Builder/path/BuildingData'; // Убедитесь, что путь до файла правильный
-import React, { useState } from 'react';
 import BuilderTable from "../Builder/BuilderTable";
 
 
@@ -67,7 +68,8 @@ const BuilderBtn: React.FC = () => {
         }
     };
 
-        const [isModalOpen, setIsModalOpen] = useState(false);
+    const { isModalOpen, setIsModalOpen } = useContext(BuilderContext);
+   
 
         // Состояние для данных текущего выбранного здания
         const [currentBuilding, setCurrentBuilding] = useState<BuildingData | null>(null);
@@ -78,8 +80,7 @@ const BuilderBtn: React.FC = () => {
         setIsModalOpen(true); // Откройте модальное окно
     };
     const closeModal = () => {
-        setIsModalOpen(false); // Закройте модальное окно
-        setCurrentBuilding(null); // Очистите текущее здание
+        setIsModalOpen(false);
     };
 
     return (
