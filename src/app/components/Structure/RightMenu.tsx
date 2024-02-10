@@ -2,8 +2,8 @@ import Link from "next/link";
 
 const RightMenu = () => {
     return (
-        <div className="RightMenu_body">
-            <div className="RightMenu_content">
+        <div className="hidden lg:inline-flex flex-col flex-shrink-0 bg-[#82D2F3]/50">
+            <div className="sticky flex flex-col pt-[60px] pr-[30px] pb-0 pl-[16px] gap-[30px] top-[61px]">
                 <Link href="/Calculators/Builder">
                     <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M50 29.6875L40.625 20.3125V6.25H34.375V14.0625L25 4.6875L0 29.6875V31.25H6.25V46.875H21.875V37.5H28.125V46.875H43.75V31.25H50V29.6875Z" fill="#A0BE3C"/>
