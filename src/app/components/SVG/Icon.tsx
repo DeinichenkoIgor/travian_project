@@ -23,6 +23,10 @@
     import MinusIcon from './Technical/MinusIcon';
     import LvlAppIcon from './Technical/LvlAppIcon';
     import LvlDefIcon from './Technical/LvlDefIcon';
+    import MenuIcon from './Technical/MenuIcon';
+    import LogoIcon from './Technical/LogoIcon';
+    import GlobeIcon from './Technical/GlobeIcon';
+    import HelmetIcon from './Technical/HelmetIcon';
 
 // Объединяем все иконки в один объект для легкого доступа
 const Icon = {
@@ -55,6 +59,10 @@ const Icon = {
         Minus: MinusIcon,
         LvlApp: LvlAppIcon,
         LvlDef: LvlDefIcon,
+        Menu: MenuIcon,
+        Logo: LogoIcon,
+        Globe: GlobeIcon,
+        Helmet: HelmetIcon,
     }
 };
 
