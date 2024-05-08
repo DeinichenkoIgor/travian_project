@@ -20,7 +20,7 @@ function BuilderContent() {
 
     return (
         
-        <div className='inline-flex flex-col items-start gap-4.5 text-sm font-[Cambria]'>
+        <div className='inline-flex flex-col items-start gap-4.5 text-sm font-[Cambria] mx-[52px] my-[30px]'>
             <div className='flex items-start gap-[420px]'>
                 <BuilderBtn />
                 <div className='flex flex-col gap-2'>

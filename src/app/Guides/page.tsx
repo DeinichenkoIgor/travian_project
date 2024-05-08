@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Guides() {
     return (
-        <div>
+        <div className='mx-[52px] my-[30px]'>
     <h1>Guides page</h1>
     <Image src="/img/homeGaul.png" width="60" height="60" alt="Guidespage" />
     </div>
