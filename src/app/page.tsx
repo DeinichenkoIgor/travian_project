@@ -1,10 +1,10 @@
+"use client"
 import Image from 'next/image';
 import Link from "next/link";
 
-
 export default function Home() {
   return (
-  <div className="home">
+  <div className="home mx-[52px] my-[30px]">
     <div className="home_h">
       <h1>Travian World</h1>
       <h2>О нас</h2>

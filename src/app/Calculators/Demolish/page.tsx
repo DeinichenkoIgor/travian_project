@@ -17,7 +17,7 @@ export default function Demolish() {
   }, [activeIcon]);
 
    return (
-      <div className='flex flex-col gap-[10px]'>
+      <div className='flex flex-col gap-[10px] mx-[52px] my-[30px]'>
         <div>Заголовок</div>
   
         <div>Описание</div>

@@ -18,15 +18,3 @@ function MyApp({  }) {
 export default MyApp;
 */
 
-const smith = {
-  dfgdf: "Главное здание",
-  dfgdf1: "",
-  dfgdf2: "",
-  dfgdf3: "",
-  lvl1: {
-    Lamb: 350,
-    Clay: 250,
-    Iron: 300,
-    Crop: 200
-  },
-}

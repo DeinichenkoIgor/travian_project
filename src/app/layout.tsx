@@ -3,10 +3,6 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from './components/Structure/Header'
 import { Footer } from './components/Structure/Footer'
-import { RightMenu } from './components/Structure/RightMenu'
-
-
-
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,8 +23,7 @@ export default function RootLayout({
         <div className='flex min-h-screen flex-col'>
           <Header /> 
           <main className='flex flex-1 flex-row justify-between '>
-            <div >{children}</div>
-            <RightMenu />
+            {children}
           </main>
           <Footer />
         </div>

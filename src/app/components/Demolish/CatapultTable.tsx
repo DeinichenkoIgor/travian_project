@@ -52,9 +52,9 @@ const CatapultTable = () => {
                                     key={cellIndex}
                                     className={`h-[22px] w-[22px] 
                                                 ${hoveredRow === rowIndex && hoveredColumn === cellIndex ? 'hover:bg-[#82D2F3]' : ''}
-                                                ${hoveredRow === rowIndex ? 'bg-[#82D2F3]/80' : ''}
-                                                ${hoveredColumn === cellIndex ? 'bg-[#82D2F3]/80' : ''}
-                                                ${cellIndex === 0 || rowIndex === 0 ? 'bg-[#F5EC81]' : 'bg-[#A0BE3C66]/20'}
+                                                ${hoveredRow === rowIndex ? 'bg-[#82D2F3]/70' : ''}
+                                                ${hoveredColumn === cellIndex ? 'bg-[#82D2F3]/70' : ''}
+                                                ${cellIndex === 0 || rowIndex === 0 ? 'bg-[#F5EC81]' : 'bg-[#A0BE3C66]/30'}
                                                 m-[1px] flex justify-center items-center`}
                                     onMouseEnter={() => {
                                       setHoveredRow(rowIndex);
